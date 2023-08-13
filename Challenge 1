@@ -1,0 +1,47 @@
+
+#include <stdio.h>
+
+int main() {
+    int n, k;
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter array elements ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter  k: ");
+    scanf("%d", &k);
+    
+   
+
+    int start = 0, end = 0; 
+    int currentSum = arr[0]; 
+    int maxLength = 0;  
+    for (int i = 1; i < n; i++) {
+       
+        currentSum += arr[i];
+        while ((double) currentSum / (i - start + 1) >= k) {
+            if (i - start + 1 > maxLength) {
+                maxLength = i - start + 1;
+                end = i;
+            }
+            currentSum -= arr[start];
+            start++;
+        }
+    }
+
+    if (maxLength == 0) {
+        printf("No subarray found with average >= %d\n", k);
+    } else {
+        printf("Longest subarray with average >= %d is from index %d to %d\n", k, end - maxLength + 1, end);
+        printf("Subarray");
+        for (int i = end - maxLength + 1; i <= end; i++) {
+            printf("%d ", arr[i]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
